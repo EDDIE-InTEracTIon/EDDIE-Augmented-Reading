@@ -151,3 +151,12 @@ C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\o
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CopyComplete
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.dll
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\bin\Debug\ModuloConsistenciaDatos.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\bin\Debug\ModuloConsistenciaDatos.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\bin\Debug\itextsharp.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\bin\Debug\itextsharp.xml
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CopyComplete
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.pdb

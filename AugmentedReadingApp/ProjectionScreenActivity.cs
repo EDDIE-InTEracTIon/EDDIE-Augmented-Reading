@@ -12,6 +12,7 @@ using CefSharp.WinForms;
 using ModuloBusquedaWeb;
 using ModuloProcesamientoImagenes;
 using ModuloVisualizacionDatos;
+using ModuloRastreoOcular;
 
 namespace AugmentedReadingApp
 {
@@ -32,7 +33,7 @@ namespace AugmentedReadingApp
         bool Hidden;
 
         string conceptoBuscar;
-        //string conceptoBuscar = "Harry Potter";
+        //string conceptoBuscar = "LQ!ve";
 
         StringBuilder csvFile = new StringBuilder();
         string csvpath = Directory.GetCurrentDirectory() + "/CSV_registro_actividades/log_actividades.csv";
@@ -79,7 +80,6 @@ namespace AugmentedReadingApp
         }
 
 
-
         private void Form2_Load(object sender, EventArgs e)
         {
             // En esta parte se comprueba si el usuario ha seleccionado//
@@ -102,9 +102,9 @@ namespace AugmentedReadingApp
                 btn_buscarWeb.Visible = true;
             }
             //Fin de la comprobación para interacción por voz//
-
-            CefSettings cfsettings = new CefSettings();
             
+            CefSettings cfsettings = new CefSettings();
+
             cfsettings.UserAgent = "Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36";
             Cef.Initialize(cfsettings);
 
@@ -112,12 +112,10 @@ namespace AugmentedReadingApp
             {
                 Dock = DockStyle.Fill,
             };
-            panel_navegador.Controls.Add(navegador);
             navegador.Visible = false;
-
+            panel_navegador.Controls.Add(navegador);
         }
       
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (markPoint)

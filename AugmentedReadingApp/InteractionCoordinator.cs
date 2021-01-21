@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using ModuloProcesamientoImagenes;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -11,7 +12,9 @@ using System.Reflection;
 using System.IO;
 using ModuloReconocimientoGestual;
 using ModuloConsistenciaDatos;
+using ModuloRastreoOcular;
 //using Leap;
+
 
 
 namespace AugmentedReadingApp
@@ -36,8 +39,6 @@ namespace AugmentedReadingApp
         OpenFileDialog openFilePDF = new OpenFileDialog();
 
         public byte[] byteImagenBuscada;
-
-
 
         private Mat rectangleImage;
         public Mat RectangleImage
@@ -207,7 +208,6 @@ namespace AugmentedReadingApp
             var CameraNumber = _CameraTextIndex;
 
             projection.Show();
-
             if (captureText == null)
             {
                 captureText = new VideoCapture(CameraNumber);
@@ -216,7 +216,6 @@ namespace AugmentedReadingApp
 
                 imageBox1.Image = recTxt.Recognition(captureText);
             }
-
         }
 
         private void comenzarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -450,6 +449,11 @@ namespace AugmentedReadingApp
 
         }
 
+        private void configurarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EyeTrackingConfiguration eyeTrackingConfig = new EyeTrackingConfiguration();
+            eyeTrackingConfig.Show();
+        }
     }
 }
 

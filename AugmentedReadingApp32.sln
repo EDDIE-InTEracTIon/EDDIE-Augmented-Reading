@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AugmentedReadingApp", "AugmentedReadingApp\AugmentedReadingApp.csproj", "{F6FB7AC4-52B4-4EEA-9353-58065B161459}"
 EndProject
@@ -40,6 +40,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apis", "Apis", "{E593CC45-5446-4885-B511-F411AAF71715}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseRecognition", "MouseRecognition\MouseRecognition.csproj", "{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginGazeCloud", "PluginGazeCloud\PluginGazeCloud.csproj", "{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuloRastreoOcular", "ModuloRastreoOcular\ModuloRastreoOcular.csproj", "{53F0271C-7AD5-494F-8796-20EA8F816E06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuloLog", "ModuloLog\ModuloLog.csproj", "{B8FD5244-3DC0-4FE2-BB49-4ED485A394FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfazRastreoOcular", "InterfazEyeTracking\InterfazRastreoOcular.csproj", "{7448F9E8-A026-40F0-8B5F-123D0558A0B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginEyeTribe", "EyeTribePlugin\PluginEyeTribe.csproj", "{469D0155-4040-468A-AA03-9F359406E6DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +125,26 @@ Global
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F0271C-7AD5-494F-8796-20EA8F816E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F0271C-7AD5-494F-8796-20EA8F816E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F0271C-7AD5-494F-8796-20EA8F816E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F0271C-7AD5-494F-8796-20EA8F816E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8FD5244-3DC0-4FE2-BB49-4ED485A394FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8FD5244-3DC0-4FE2-BB49-4ED485A394FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8FD5244-3DC0-4FE2-BB49-4ED485A394FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8FD5244-3DC0-4FE2-BB49-4ED485A394FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

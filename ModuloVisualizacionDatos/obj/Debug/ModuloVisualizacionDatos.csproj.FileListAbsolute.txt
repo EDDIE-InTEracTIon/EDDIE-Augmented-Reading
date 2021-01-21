@@ -184,3 +184,12 @@ C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CopyComplete
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.dll
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\bin\Debug\ModuloVisualizacionDatos.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\bin\Debug\ModuloVisualizacionDatos.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\bin\Debug\itextsharp.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\bin\Debug\itextsharp.xml
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CopyComplete
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.pdb
