@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Speech.Recognition;
@@ -9,9 +10,14 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using ModuloBusquedaWeb;
+using ModuloConsistenciaDatos;
 using ModuloProcesamientoImagenes;
 using ModuloVisualizacionDatos;
+using Newtonsoft.Json.Linq;
+using ModuloRastreoOcular;
 
 namespace AugmentedReadingApp
 {
@@ -32,10 +38,19 @@ namespace AugmentedReadingApp
         bool Hidden;
 
         string conceptoBuscar;
-        //string conceptoBuscar = "Harry Potter";
+        //string conceptoBuscar = "LQ!ve";
 
         StringBuilder csvFile = new StringBuilder();
         string csvpath = Directory.GetCurrentDirectory() + "/CSV_registro_actividades/log_actividades.csv";
+
+        int nPage = 1;
+        int nPages = 1;
+
+
+        //Agrega Modulo Consistencia DP
+        public int numeroCamara;
+        FiguresDP FiguresDP;
+
 
         public ProjectionScreenActivity(InteractionCoordinator incomingForm)
         {
@@ -79,7 +94,6 @@ namespace AugmentedReadingApp
         }
 
 
-
         private void Form2_Load(object sender, EventArgs e)
         {
             // En esta parte se comprueba si el usuario ha seleccionado//
@@ -102,9 +116,9 @@ namespace AugmentedReadingApp
                 btn_buscarWeb.Visible = true;
             }
             //Fin de la comprobación para interacción por voz//
-
-            CefSettings cfsettings = new CefSettings();
             
+            CefSettings cfsettings = new CefSettings();
+
             cfsettings.UserAgent = "Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36";
             Cef.Initialize(cfsettings);
 
@@ -114,10 +128,8 @@ namespace AugmentedReadingApp
             };
             panel_navegador.Controls.Add(navegador);
             navegador.Visible = false;
-
         }
       
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (markPoint)
@@ -179,21 +191,23 @@ namespace AugmentedReadingApp
             if (Highlight.HighLightOn)
             {
 
-                button3.Text = "TEXT/IMAGE";
-                button3.BackColor = default(Color);
+                textImageButton.Text = "TEXT/IMAGE";
+                textImageButton.BackColor = default(Color);
                 Highlight.HighLightOn = false;
 
             }
             else
             {
                 //button3.BackColor = Color.Gray;
-                button3.BackColor = default(Color);
-                button3.Text = "HIGHLIGHT";
+                textImageButton.BackColor = default(Color);
+                textImageButton.Text = "HIGHLIGHT";
                 Highlight.HighLightOn = true;
             }
 
 
         }
+
+
 
         private void FirstClick()
         {
@@ -223,37 +237,62 @@ namespace AugmentedReadingApp
             }
             else
             {
-                if (originalForm.plugin.AutoCamCapture)//codicion de que el plugin permita autocapture (funcione con una camara). ej: reconocimiento gestual por lapiz
+                if (originalForm.captureGesture != null)
                 {
-                    if (!originalForm.checkBoxMouse.Checked)
+                    if (originalForm.plugin.AutoCamCapture)//codicion de que el plugin permita autocapture (funcione con una camara). ej: reconocimiento gestual por lapiz
                     {
-                        originalForm.recGestual.FinalToRectWH();
-                    }
+                        if (!originalForm.checkBoxMouse.Checked)// capture no esta chequeado
+                        {
+                            originalForm.recGestual.FinalToRectWH();
+                        }
 
-                    
+                        originalForm.CaptureImage();
 
-                    originalForm.CaptureImage();
-
-                    try
-                    {
-                        // textBox1.Text = OCRProcess.TransformImage();//activar si se selecciona un fragmento de texto
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("OCRProcess rectangulo: " + ex.Message);
+                        //activar si se selecciona un fragmento de texto
+                        //try
+                        //{
+                        //    // textBox1.Text = OCRProcess.TransformImage();
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    MessageBox.Show("OCRProcess rectangulo: " + ex.Message);
+                        //}
                     }
                 }
             }
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void syncPdfButton_Click(object sender, EventArgs e)
         {
+
             float llx = (Highlight.normRect.Left) * originalForm.documentoSyn.rectPage.Right;
             float lly = (1 - Highlight.normRect.Bottom ) * originalForm.documentoSyn.rectPage.Top - (Highlight.normRect.Top) * originalForm.documentoSyn.rectPage.Top;
             float urx = (Highlight.normRect.Left) * originalForm.documentoSyn.rectPage.Right + (Highlight.normRect.Right) * originalForm.documentoSyn.rectPage.Right;
             float ury = (1 - Highlight.normRect.Bottom) * originalForm.documentoSyn.rectPage.Top;
-            originalForm.documentoSyn.SaveAnno(llx, lly, urx, ury);
+            originalForm.documentoSyn.SaveAnno(llx, lly, urx, ury,nPage);
             Highlight.GetRectangles(originalForm.documentoSyn.listaRectangulos);
+            nPages = originalForm.documentoSyn.NPages;
+            syncButton.Text = " Sync\nPage " + nPage + "/" +nPages;
+
+        }
+
+        private void nextPageButton_Click(object sender, EventArgs e)
+        {
+            nPage++;
+            if (nPage > nPages) nPage = nPages; 
+            syncButton.Text = " Sync\nPage " + nPage + "/" + nPages;
+        }
+
+        private void backPagebutton_Click(object sender, EventArgs e)
+        {
+            nPage--;
+            if (nPage < 1) nPage = 1;
+            syncButton.Text = " Sync\nPage " + nPage + "/" + nPages;
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            PagesLabel.Text = String.Join(",", originalForm.documentoSyn.SearchTxtPdf(searchTextBox.Text).ToArray()); ;
         }
 
         private void btn_buscarWeb_Click(object sender, EventArgs e)
@@ -691,9 +730,9 @@ namespace AugmentedReadingApp
                 "Definición",
                 "Imagen" });
 
-            GrammarBuilder builderBusqueda = new GrammarBuilder("EDDIE Buscar");
-            GrammarBuilder builderLectura = new GrammarBuilder("EDDIE Lectura");
-            GrammarBuilder builderCerrar = new GrammarBuilder("EDDIE Cerrar");
+            GrammarBuilder builderBusqueda = new GrammarBuilder("Buscar");
+            GrammarBuilder builderLectura = new GrammarBuilder("Lectura");
+            GrammarBuilder builderCerrar = new GrammarBuilder("Cerrar");
             builderBusqueda.Append(commandChoices);
             builderLectura.Append(commandChoices);
             builderCerrar.Append(commandChoices);
@@ -721,62 +760,388 @@ namespace AugmentedReadingApp
         private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             string resultado = e.Result.Text;
-            if (resultado.Equals("EDDIE Cerrar Enciclopedia"))
+            if (resultado.Equals("Cerrar Enciclopedia"))
             {
                 cerrar_enciclopedia();
             }
-            else if (resultado.Equals("EDDIE Cerrar Video"))
+            else if (resultado.Equals("Cerrar Video"))
             {
                 cerrar_video();
             }
-            else if (resultado.Equals("EDDIE Cerrar Definición"))
+            else if (resultado.Equals("Cerrar Definición"))
             {
                 cerrar_definicion();
             }
-            else if (resultado.Equals("EDDIE Cerrar Traducción"))
+            else if (resultado.Equals("Cerrar Traducción"))
             {
                 cerrar_traduccion();
             }
-            else if (resultado.Equals("EDDIE Cerrar Imagen"))
+            else if (resultado.Equals("Cerrar Imagen"))
             {
                 cerrar_imagen();
             }
-            else if (resultado.Equals("EDDIE Lectura Definición"))
+            else if (resultado.Equals("Lectura Definición"))
             {
                 leerVozAlta(rtb_result_definicion_traduccion.Text);
             }
-            else if (resultado.Equals("EDDIE Lectura Traducción"))
+            else if (resultado.Equals("Lectura Traducción"))
             {
                 leerVozAlta(rtb_result_definicion_traduccion.Text);
             }
-            else if (resultado.Equals("EDDIE Lectura Enciclopedia"))
+            else if (resultado.Equals("Lectura Enciclopedia"))
             {
                 leerVozAlta(rtb_ResultadosWikipedia.Text);
             }
-            else if (resultado.Equals("EDDIE Buscar Traducción"))
+            else if (resultado.Equals("Buscar Traducción"))
             {
                 traductor();
             }
-            else if (resultado.Equals("EDDIE Buscar Definición"))
+            else if (resultado.Equals("Buscar Definición"))
             {
                 diccionario();
             }
-            else if (resultado.Equals("EDDIE Buscar Video"))
+            else if (resultado.Equals("Buscar Video"))
             {
                 buscar_Video();
             }
-            else if (resultado.Equals("EDDIE Buscar Enciclopedia"))
+            else if (resultado.Equals("Buscar Enciclopedia"))
             {
                 buscar_Enciclopedia();
             }
-            else if (resultado.Equals("EDDIE Buscar Imagen"))
+            else if (resultado.Equals("Buscar Imagen"))
             {
                 buscarPorImagen();
             }
         }
-
         // Fin del código para la interacción a través de comandos de voz //
 
+
+        //Sincronizar figuras desde físico a digital
+        private void buttonFiguresPD_Click(object sender, EventArgs e)
+        {
+            string pdfName = originalForm.pdfName;
+            numeroCamara = originalForm.numeroCamara;
+            int page = Int32.Parse(searchTextBox.Text);
+            VideoCapture auxCapture = originalForm._capture;
+            Mat captureImage = new Mat();
+
+            auxCapture.Read(captureImage);
+            Image<Bgr, byte> imagen_aux = captureImage.ToImage<Bgr, byte>();
+            //pictureBox1.Image = imagen_aux.Bitmap;
+            //imageBox1.Image = imagen_aux;
+
+            Console.WriteLine("Entro en figuras desde fisico " + numeroCamara);
+           
+            // Inicia el contador de tiempo figuras DP:
+            DateTime timeFiguresPD1 = DateTime.Now;
+            ConsistenciaFigurasFD buscarFiguras = new ConsistenciaFigurasFD();
+            List<string> figurasEncontradas = new List<string>();
+            //JObject resultado;
+
+            if (pdfName != null)
+            {
+
+                int resultado = buscarFiguras.buscarFiguras(captureImage, originalForm.pdfName, page);
+                // Para el contador e imprime el resultado:
+                DateTime timeFiguresPD2 = DateTime.Now;
+                Console.WriteLine("este es el resultado de Sinc Figuras: " + resultado);
+                if (resultado == 1)
+                {
+
+                    TimeSpan timeFiguresPD = new TimeSpan(timeFiguresPD2.Ticks - timeFiguresPD1.Ticks);
+                    Console.WriteLine("TIEMPO Figures PD: " + timeFiguresPD.ToString());                  
+                    MessageBox.Show("Figuras sincronizadas");
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron figuras");
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("No se ha ingresado archivo PDF");
+            }
+        }
+
+        private void buttonPDF_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            checkBox1.Checked = true;
+            int page = Int32.Parse(searchTextBox.Text);
+            Console.WriteLine("Entro en sincronizar PDF  ");
+            string pdfName = originalForm.pdfName;
+            Mat imagen = new Mat();
+            FiguresConsistencyDP buscarDP = new FiguresConsistencyDP();
+            PageMarkerDP getMarkerDP = new PageMarkerDP();
+            ConsistencyCommentsDP getCommentsDP = new ConsistencyCommentsDP();
+            JObject resultado;
+            if (pdfName != null)
+            {
+
+
+                // Inicia el contador:
+                Stopwatch tiempo = Stopwatch.StartNew();
+                // Inicia el contador de tiempo figuras DP:
+                DateTime timeFiguresDP1 = DateTime.Now;
+                resultado = buscarDP.SincronizarFiguras(originalForm.pdfName, page);
+                // Para el contador e imprime el resultado:
+                Console.WriteLine("TIEMPO 2: " + tiempo.ElapsedMilliseconds.ToString());
+                // Para el contador e imprime el resultado:
+                DateTime timeFiguresDP2 = DateTime.Now;
+                TimeSpan timeFiguresDP = new TimeSpan(timeFiguresDP2.Ticks - timeFiguresDP1.Ticks);
+                Console.WriteLine("TIEMPO Figures DP: " + timeFiguresDP.ToString());
+                //TimesFromFiguresDP.Add(timeFiguresDP.ToString());
+
+            
+                int k = 0;
+
+
+                FiguresDP = new FiguresDP(resultado)
+                {
+                    Name = "FiguresDP",
+                    BackColor = Color.FromArgb(255, 255, 255),
+                    Location = new Point(285, 65),
+                };
+
+
+                this.Controls.Add(FiguresDP);
+                FiguresDP.BringToFront();
+
+                // Inicia el contador de tiempo Marker DP:
+                DateTime timeMarkerDP1 = DateTime.Now;
+                List<string> marker = getMarkerDP.GetPageMarker(originalForm.pdfName);
+                // Para el contador e imprime el resultado:
+                DateTime timeMarkerDP2 = DateTime.Now;
+                TimeSpan timeMarkerDP = new TimeSpan(timeMarkerDP2.Ticks - timeMarkerDP1.Ticks);
+                Console.WriteLine("TIEMPO MARKER DP: " + timeMarkerDP.ToString());
+                //TimesFromMarkerDP.Add(timeMarkerDP.ToString());
+                
+
+                // Inicia el contador de tiempo Marker DP:
+                DateTime timeCommentsDP1 = DateTime.Now;
+                List<List<string>> comments = getCommentsDP.GetComments(originalForm.pdfName);
+                // Para el contador e imprime el resultado:
+                DateTime timeCommentsDP2 = DateTime.Now;
+                TimeSpan timeCommentsDP = new TimeSpan(timeCommentsDP2.Ticks - timeCommentsDP1.Ticks);
+                Console.WriteLine("TIEMPO Comments DP: " + timeCommentsDP.ToString());
+                //TimesFromCommentsDP.Add(timeCommentsDP.ToString());
+               
+
+                foreach (var item in marker)
+                {
+
+                    Console.WriteLine("Marcadores  " + item.ToString());
+                    listBox1.Items.Add(item);
+                }
+                foreach (var item in comments)
+                {
+
+                    Console.WriteLine("Comentarios  " + item.ToString());
+                    listBox2.Items.Add(item[0] + " Pag." + item[1]);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se ha ingresado archivo PDF");
+            }
+
+            if (listBox1.Items.Count > 0)
+            {
+
+                buttonEliminarMarcador.Enabled = true;
+
+            }
+            if (listBox2.Items.Count > 0)
+            {
+                buttonEliminarComentario.Enabled = true;
+
+            }
+        }
+
+        private void buttonEliminarMarcador_Click(object sender, EventArgs e)
+        {
+            string pdfName = originalForm.pdfName;
+            //string curItem = listBox1.SelectedItem.ToString();
+            if (listBox1.SelectedIndex > -1)
+            {
+                string curItem = listBox1.SelectedItem.ToString();
+                MessageBox.Show("Item " + curItem);
+                PageMarkerDP deleteMarkerDP = new PageMarkerDP();
+                int res = deleteMarkerDP.DeleteMarker(curItem, pdfName);
+                if (res == 1)
+                {
+                    MessageBox.Show("Marcador eliminado");
+                    listBox1.Items.Remove(curItem);
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo completar la operación");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No esta seleccionado");
+            }
+
+        }
+
+        private void buttonEliminarComentario_Click(object sender, EventArgs e)
+        {
+            //string curItem = listBox2.SelectedItem.ToString();
+            if (listBox2.SelectedIndex > -1)
+            {
+                string curItem = listBox2.SelectedItem.ToString();
+
+                //string text = listBox2.GetItemText(listBox2.SelectedItem);
+                MessageBox.Show("Comentario " + curItem + " eliminado");
+                listBox2.Items.Remove(curItem);
+            }
+            else
+            {
+                MessageBox.Show("No esta seleccionado");
+            }
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Cambio");
+            if (FiguresDP == null)
+            {
+                MessageBox.Show("FiguresDP is null.\n" +
+                                "Check ProjectionScreenActivity.cs line 1014 for debugging");
+            }
+            else
+            {
+                if (FiguresDP.Visible == true)
+                {
+                    FiguresDP.Visible = false;
+                    Color redColor = Color.FromArgb(255, 0, 0);
+                    checkBox1.ForeColor = redColor;
+                }
+                else
+                {
+                    FiguresDP.Visible = true;
+                    Color greenColor = Color.FromArgb(0, 192, 0);
+                    checkBox1.ForeColor = greenColor;
+
+                }
+            }
+        }
+
+
+        //Sincronizar comentarios desde fisico a digital
+        private void buttonComments_Click(object sender, EventArgs e)
+        {
+            string pdfName = originalForm.pdfName;
+            numeroCamara = originalForm.numeroCamara;
+            try
+            {
+                int page = Int32.Parse(searchTextBox.Text);
+
+                VideoCapture auxCapture = originalForm._capture;
+                Mat captureImage = new Mat();
+                auxCapture.Read(captureImage);
+                Image<Bgr, byte> imagen_aux = captureImage.ToImage<Bgr, byte>();
+                ///pictureBox1.Image = imagen_aux.Bitmap;
+                //imageBox1.Image = imagen_aux;
+
+                ConsistencyCommentsPD getCommentsPD = new ConsistencyCommentsPD();
+                Console.WriteLine("Entro en comentarios PD " + numeroCamara);
+
+
+                if (pdfName != null)
+                {
+                    // Inicia el contador de tiempo figuras DP:
+                    DateTime timeCommentsPD1 = DateTime.Now;
+                    List<List<string>> comments = getCommentsPD.GetComments(originalForm.pdfName, captureImage, page);
+                    // Para el contador e imprime el resultado:
+                    DateTime timeCommentsPD2 = DateTime.Now;
+                    TimeSpan timeCommentsPD = new TimeSpan(timeCommentsPD2.Ticks - timeCommentsPD1.Ticks);
+                    Console.WriteLine("TIEMPO Comments PD: " + timeCommentsPD.ToString());
+
+
+
+                    foreach (var item in comments)
+                    {
+                        foreach (var item2 in item)
+                        {
+                            Console.WriteLine("Respondio de biblio " + item2);
+                            if (item2 == "SI")
+                            {
+                                MessageBox.Show("Se sincronizó el comentario");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se encontró comentario para sincronizar");
+                            }
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("No se ha ingresado archivo PDF");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
+        //Consistencia marcadores fisico a digital
+        private void buttonMarker_Click(object sender, EventArgs e)
+        {
+            string pdfName = originalForm.pdfName;
+            numeroCamara = originalForm.numeroCamara;
+            int page = Int32.Parse(searchTextBox.Text);
+            VideoCapture auxCapture = originalForm._capture;
+            Mat captureImage = new Mat();
+            auxCapture.Read(captureImage);
+            Image<Bgr, byte> imagen_aux = captureImage.ToImage<Bgr, byte>();
+            //pictureBox1.Image = imagen_aux.Bitmap;
+            //imageBox1.Image = imagen_aux;
+
+            PageMarkerPD getMarkerPD = new PageMarkerPD();
+           
+            if (pdfName != null)
+            {
+                // Inicia el contador de tiempo Marker PD:
+                DateTime timeMarkerPD1 = DateTime.Now;
+                int markerRes = getMarkerPD.GetPageMarker(captureImage, originalForm.pdfName, page);
+                // Para el contador e imprime el resultado:
+                DateTime timeMarkerPD2 = DateTime.Now;
+
+
+                if (markerRes == 0)
+                {
+
+                    MessageBox.Show("No se encontró marcador");
+
+                }
+                else if (markerRes == 10)
+                {
+                    MessageBox.Show("Se sincronizó correctamente");
+                    TimeSpan timeMarkerPD = new TimeSpan(timeMarkerPD2.Ticks - timeMarkerPD1.Ticks);
+                    Console.WriteLine("TIEMPO MARKER PD: " + timeMarkerPD.ToString());
+                    //TimesFromMarkerDP.Add(timeMarkerDP.ToString());
+                    /*ESCRIBIR EN ARCHIVO*/
+                    StreamWriter sw = new StreamWriter("C:\\Users\\Denisse\\Desktop\\EDDIE-Augmented-Reading-master\\AugmentedReadingApp\\bin\\x86\\Debug\\TiempoMarcadorFisico.txt", true);
+                    //Write a line of text
+                    sw.WriteLine("MarkerPD;" + timeMarkerPD.ToString());
+                    sw.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione PDF");
+            }
+        }
     }
 }
 

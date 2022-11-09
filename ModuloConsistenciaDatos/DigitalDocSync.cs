@@ -11,8 +11,10 @@ using iTextSharp.text.pdf.parser;
 
 namespace ModuloConsistenciaDatos
 {
+    
     public class DigitalDocSync
     {
+        
         PdfReader reader;
         public iTextSharp.text.Rectangle rectPage;
         private string outputFile;
@@ -21,44 +23,48 @@ namespace ModuloConsistenciaDatos
         string highLightFile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Highlighted.pdf");
         string highLightFileTemp = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "HighlightedTemp.pdf");
         string highLightFileBac = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "HighlightedTemp.pdf.bac");
+        //int numberOfPages;//Numero de paginas del documento selecionado
+
         public DigitalDocSync(string OutputFile)
         {
             outputFile = OutputFile;
             reader = new PdfReader(outputFile);
             rectPage = reader.GetPageSize(1);
-            reader.Close();
-            
-        } 
-           
+            //numberOfPages = reader.NumberOfPages;//Numero de paginas del documento seleccionado
+            nPages = reader.NumberOfPages;//Numero de paginas del documento seleccionado
+            reader.Close();            
+        }
 
-       public string outputData;
+        int nPages = 1;//Guarda el numerno de pagina que se esta manipulando       
+        public int NPages
+        {
+
+            get {return nPages; }
+        }
+
+        public string outputData;
         public string OutputData
         {
             
             set { OutputData = value; }
         }
 
-        public void SaveAnno(float lx, float ly, float rx, float ry)
+        public void SaveAnno(float lx, float ly, float rx, float ry, int nPage)
         {
         
             reader = new PdfReader(outputFile);
             rectPage = reader.GetPageSize(1);
-            PutRectAnno(lx, ly,  rx,  ry);
+            PutRectAnno(lx, ly,  rx,  ry, nPage);
             reader.Close();
         
             System.IO.File.Replace(highLightFile, outputFile, highLightFileBac);
-            GetRectAnno();
+            GetRectAnno(nPage);
         }
         
 
 
-            public void PutRectAnno(float lx, float ly, float rx, float ry)
+        public void PutRectAnno(float lx, float ly, float rx, float ry,int nPage)
         {
-            
-
-
-
-
             using (FileStream fs = new FileStream(highLightFile, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 using (PdfStamper stamper = new PdfStamper(reader, fs))
@@ -78,7 +84,7 @@ namespace ModuloConsistenciaDatos
 
                     if (rect.Width > 0 && rect.Height > 0)
                     {
-                        stamper.AddAnnotation(highlight, 1);
+                        stamper.AddAnnotation(highlight, nPage);
                     }
 
 
@@ -89,7 +95,7 @@ namespace ModuloConsistenciaDatos
 
         }
 
-        public void GetRectAnno()
+        public void GetRectAnno(int nPage)
         {
 
             string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
@@ -104,11 +110,12 @@ namespace ModuloConsistenciaDatos
                 {
                     pageTo = reader.NumberOfPages;
 
-                    for (int i = 1; i <= reader.NumberOfPages; i++)
-                    {
+                    //for (int i = 1; i <= reader.NumberOfPages; i++)// tomar un gripo de paginas
+                        
+                       // {
 
 
-                        PdfDictionary page = reader.GetPageN(i);
+                        PdfDictionary page = reader.GetPageN(nPage);// para grupo de pagina remplazar nPage por i
                         PdfArray annots = page.GetAsArray(iTextSharp.text.pdf.PdfName.ANNOTS);
                         if (annots != null)
                             foreach (PdfObject annot in annots.ArrayList)
@@ -140,19 +147,46 @@ namespace ModuloConsistenciaDatos
 
 
                                     strategy = new FilteredTextRenderListener(new LocationTextExtractionStrategy(), filter);
-                                    sb.AppendLine(PdfTextExtractor.GetTextFromPage(reader, i, strategy));
+                                    sb.AppendLine(PdfTextExtractor.GetTextFromPage(reader, nPage, strategy));//para un grupo de paginas cambiar nPage por i
 
      
                                 }
 
                             }
 
-                    }
                 }
+               // }
             }
             catch (Exception ex)
             {
             }
+        }
+
+        public List<int> SearchTxtPdf( String searthText)
+        {
+            List<int> pages = new List<int>();
+          
+            
+            string filePath = outputFile;
+
+            using (PdfReader reader = new PdfReader(filePath))
+            {
+
+            
+                
+                for (int page = 1; page <= reader.NumberOfPages; page++)
+                {
+                    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+
+                    string currentPageText = PdfTextExtractor.GetTextFromPage(reader, page, strategy);
+                    if (currentPageText.Contains(searthText))
+                    {
+                        pages.Add(page);
+                    }
+                }
+                reader.Close();
+            }
+            return pages;
         }
     }
 }

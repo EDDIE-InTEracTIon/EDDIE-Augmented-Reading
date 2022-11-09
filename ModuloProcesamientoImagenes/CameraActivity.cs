@@ -20,6 +20,11 @@ namespace ModuloProcesamientoImagenes
 
         public List<KeyValuePair<int, string>> ListCameras()
         {
+            _SystemCamereas = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice);
+            _DeviceIndex = 0;
+
+            ListCamerasData.Clear();
+
             foreach (DsDevice _Camera in _SystemCamereas)
             {
 

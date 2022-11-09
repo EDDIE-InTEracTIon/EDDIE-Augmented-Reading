@@ -74,3 +74,9 @@ C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiBuscarYoutube\obj\Debu
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.csproj.CopyComplete
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.dll
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiBuscarYoutube.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiBuscarYoutube.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.csproj.CopyComplete

@@ -89,3 +89,10 @@ C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiTraduccionBing\obj\Deb
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csproj.CopyComplete
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.dll
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiTraduccionBing.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiTraduccionBing.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csproj.CopyComplete

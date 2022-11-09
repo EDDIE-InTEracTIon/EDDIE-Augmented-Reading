@@ -87,3 +87,10 @@ C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiDefinicionesGoogle\obj
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CopyComplete
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.dll
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiDefinicionesGoogle.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiDefinicionesGoogle.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CopyComplete

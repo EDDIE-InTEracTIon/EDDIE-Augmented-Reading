@@ -36,6 +36,8 @@
             this.comenzarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detenerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.complementoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rastreoOcularToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRecTxt = new System.Windows.Forms.Label();
             this.ComboBoxCameraList2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -127,6 +129,7 @@
             // 
             // ComboBoxCameraList1
             // 
+            this.ComboBoxCameraList1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxCameraList1.FormattingEnabled = true;
             this.ComboBoxCameraList1.Location = new System.Drawing.Point(12, 61);
             this.ComboBoxCameraList1.Name = "ComboBoxCameraList1";
@@ -138,7 +141,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reconocimientoToolStripMenuItem,
-            this.complementoToolStripMenuItem});
+            this.complementoToolStripMenuItem,
+            this.rastreoOcularToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1180, 24);
@@ -174,6 +178,21 @@
             this.complementoToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.complementoToolStripMenuItem.Text = "Complemento";
             // 
+            // rastreoOcularToolStripMenuItem
+            // 
+            this.rastreoOcularToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configurarToolStripMenuItem});
+            this.rastreoOcularToolStripMenuItem.Name = "rastreoOcularToolStripMenuItem";
+            this.rastreoOcularToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.rastreoOcularToolStripMenuItem.Text = "Rastreo Ocular";
+            // 
+            // configurarToolStripMenuItem
+            // 
+            this.configurarToolStripMenuItem.Name = "configurarToolStripMenuItem";
+            this.configurarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.configurarToolStripMenuItem.Text = "Configurar";
+            this.configurarToolStripMenuItem.Click += new System.EventHandler(this.configurarToolStripMenuItem_Click);
+            // 
             // labelRecTxt
             // 
             this.labelRecTxt.AutoSize = true;
@@ -185,6 +204,7 @@
             // 
             // ComboBoxCameraList2
             // 
+            this.ComboBoxCameraList2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxCameraList2.FormattingEnabled = true;
             this.ComboBoxCameraList2.Location = new System.Drawing.Point(11, 362);
             this.ComboBoxCameraList2.Name = "ComboBoxCameraList2";
@@ -1084,5 +1104,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         public System.Windows.Forms.CheckBox checkBoxMouse;
+        private System.Windows.Forms.ToolStripMenuItem rastreoOcularToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configurarToolStripMenuItem;
     }
 }

@@ -81,3 +81,9 @@ C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiWikipedia\obj\Debug\Ap
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CopyComplete
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiWikipedia\obj\Debug\ApiWikipedia.dll
 C:\Users\Dania\Desktop\Github2\EDDIE-Augmented-Reading\ApiWikipedia\obj\Debug\ApiWikipedia.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiWikipedia\obj\Debug\ApiWikipedia.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiWikipedia\obj\Debug\ApiWikipedia.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiWikipedia.dll
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\AugmentedReadingApp\bin\x86\Debug\Apis\ApiWikipedia.pdb
+C:\Users\gesta\Desktop\EDDIE-Augmented-Reading-master\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CopyComplete

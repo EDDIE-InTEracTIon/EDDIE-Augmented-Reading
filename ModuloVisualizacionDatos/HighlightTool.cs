@@ -145,7 +145,8 @@ namespace ModuloVisualizacionDatos
 
             rect = new Rectangle();
             rect.X = Math.Min(StartLocation.X, EndLcation.X);
-            rect.Y = Math.Min(StartLocation.Y, EndLcation.Y);
+            //rect.Y = Math.Min(StartLocation.Y, EndLcation.Y);
+            rect.Y = StartLocation.Y;
             rect.Width = Math.Abs(StartLocation.X - EndLcation.X);
             //rect.Height = Math.Abs(StartLocation.Y - EndLcation.Y);
             rect.Height = Math.Abs(HighlightHeight);
